@@ -1,0 +1,14 @@
+
+platform :ios, '8.0'
+
+target 'DecoratorDemo' do
+  pod 'Decorator', :path => '../'
+
+  target 'DecoratorDemoTests' do
+    inherit! :search_paths
+  end
+
+  target 'DecoratorDemoUITests' do
+    inherit! :search_paths
+  end
+end
