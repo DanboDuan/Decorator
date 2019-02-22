@@ -20,8 +20,8 @@
 
 - (instancetype)initWithTarget:(id)target type:(DecoratorTargetType)targetType {
     switch (targetType) {
-        case DecoratorTargetTypeStrong:     self.strongTarget = target;
-        case DecoratorTargetTypeWeak:       self.weakTarget = target;
+        case DecoratorTargetTypeStrong:     self.strongTarget = target; break;
+        case DecoratorTargetTypeWeak:       self.weakTarget = target;   break;
     }
     self.targetType = targetType;
     return self;

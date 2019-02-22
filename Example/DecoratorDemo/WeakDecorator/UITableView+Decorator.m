@@ -29,21 +29,21 @@
 + (void)startSwizzle {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        d_swizzle_instance_method([self class], @selector(setDelegate:), @selector(d_setTableViewDelegate:));
+        d_swizzle_instance_method([self class], @selector(setDelegate:), @selector(d_setTDelegate:));
     });
 }
 
-- (void)d_setTableViewDelegate:(id)delegate {
+- (void)d_setTDelegate:(id)delegate {
 
     if (delegate == nil || [object_getClass(delegate) isKindOfClass:object_getClass([DTableViewDelegateDecorator class])] ) {
         self.decorator = delegate;
-        [self d_setTableViewDelegate:delegate];
+        [self d_setTDelegate:delegate];
         return;
     }
 
-    DTableViewDelegateDecorator *proxy = [[DTableViewDelegateDecorator alloc] initWithTarget:delegate];
-    self.decorator = proxy;
-    [self d_setTableViewDelegate:proxy];
+    DTableViewDelegateDecorator *decorator = [[DTableViewDelegateDecorator alloc] initWithTarget:delegate];
+    self.decorator = decorator;
+    [self d_setTDelegate:decorator];
 }
 
 @end

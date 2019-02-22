@@ -38,7 +38,7 @@
 + (void)startSwizzle {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        d_swizzle_instance_method([self class], @selector(setDelegate:), @selector(d_setScrollViewDelegate:));
+        d_swizzle_instance_method([self class], @selector(setDelegate:), @selector(d_setSDelegate:));
     });
 }
 
@@ -50,17 +50,17 @@
     return objc_getAssociatedObject(self, @selector(decorator));
 }
 
-- (void)d_setScrollViewDelegate:(id)delegate {
+- (void)d_setSDelegate:(id)delegate {
 
     if (delegate == nil || [object_getClass(delegate) isKindOfClass:object_getClass([DScrollViewDelegateDecorator class])]) {
         self.decorator = delegate;
-        [self d_setScrollViewDelegate:delegate];
+        [self d_setSDelegate:delegate];
         return;
     }
 
-    DScrollViewDelegateDecorator *proxy = [[DScrollViewDelegateDecorator alloc] initWithTarget:delegate];
-    self.decorator = proxy;
-    [self d_setScrollViewDelegate:proxy];
+    DScrollViewDelegateDecorator *decorator = [[DScrollViewDelegateDecorator alloc] initWithTarget:delegate];
+    self.decorator = decorator;
+    [self d_setSDelegate:decorator];
 }
 
 @end
