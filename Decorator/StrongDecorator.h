@@ -6,15 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Decorator.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface StrongDecorator : NSProxy
-
-@property (nonatomic, strong, readonly) id target;
+@interface StrongDecorator : Decorator
 
 - (instancetype)initWithTarget:(id)target;
-
 
 @end
 

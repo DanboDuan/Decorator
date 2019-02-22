@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "DemoViewController.h"
+#import "Demo.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +18,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [Demo startDemo];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[DemoViewController new]];
+    self.window.rootViewController = nav;
+    //    self.window.rootViewController = [DemoViewController new];
+    //    self.window.rootViewController = [BDTabBarController new];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

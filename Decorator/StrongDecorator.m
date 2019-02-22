@@ -9,23 +9,16 @@
 
 @interface StrongDecorator ()
 
-@property (nonatomic, strong) id target;
-
 @end
 
 @implementation StrongDecorator
 
 - (instancetype)initWithTarget:(id)target {
-    self.target = target;
-    return self;
+    return [self initWithTarget:target type:(DecoratorTargetTypeStrong)];
 }
 
-- (void)forwardInvocation:(NSInvocation *)invocation {
-    [invocation invokeWithTarget:self.target];
-}
-
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
-    return [self.target methodSignatureForSelector:sel];
+- (instancetype)initWithTarget:(id)target type:(DecoratorTargetType)targetType {
+    return [super initWithTarget:target type:(DecoratorTargetTypeStrong)];
 }
 
 @end

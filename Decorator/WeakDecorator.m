@@ -1,7 +1,3 @@
-//
-//  WeakDecorator.m
-//  BDAutoTracker
-//
 //  Created by bob on 2019/1/20.
 //
 
@@ -9,23 +5,16 @@
 
 @interface WeakDecorator ()
 
-@property (nonatomic, weak) id target;
-
 @end
 
 @implementation WeakDecorator
 
 - (instancetype)initWithTarget:(id)target {
-    self.target = target;
-    return self;
+    return [self initWithTarget:target type:(DecoratorTargetTypeWeak)];
 }
 
-- (void)forwardInvocation:(NSInvocation *)invocation {
-    [invocation invokeWithTarget:self.target];
-}
-
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel {
-    return [self.target methodSignatureForSelector:sel];
+- (instancetype)initWithTarget:(id)target type:(DecoratorTargetType)targetType {
+    return [super initWithTarget:target type:(DecoratorTargetTypeWeak)];
 }
 
 @end
