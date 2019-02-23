@@ -16,7 +16,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // do some thing
-    NSLog(@"DTableViewDelegateDecorator do some thing");
+    NSLog(@"TableViewDelegateDecorator do some thing");
     if ([self.target respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
         [self.target tableView:tableView didSelectRowAtIndexPath:indexPath];
     }

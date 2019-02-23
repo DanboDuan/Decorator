@@ -7,12 +7,12 @@
 //
 
 #import "DemoViewController.h"
-#import "PageVCDelegateAndDataSource.h"
+#import "DecoratorViewController.h"
 
 NSString * const CellReuseIdentifier = @"UITableViewCell_ri";
 
 
-@interface BDFeedModel : NSObject
+@interface FeedModel : NSObject
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *actionVCName;
@@ -20,7 +20,7 @@ NSString * const CellReuseIdentifier = @"UITableViewCell_ri";
 
 @end
 
-@implementation BDFeedModel
+@implementation FeedModel
 
 
 
@@ -28,80 +28,19 @@ NSString * const CellReuseIdentifier = @"UITableViewCell_ri";
 
 static NSArray *testFeedList() {
     NSMutableArray *array = [NSMutableArray array];
-    [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test TableView";
-        model.actionVCName = @"";
-        model;
-    })];
 
     [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test CollectionView";
-        model.actionVCName = @"";
-        model;
-    })];
-
-    [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test UIControl";
-        model.actionVCName = @"";
-        model;
-    })];
-
-    [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test ScrollView和PageControl";
-        model.actionVCName = @"";
-        model;
-    })];
-
-    [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test TabBarController";
-        model.actionVCName = @"";
-        model;
-    })];
-
-    [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test AlertVC";
-        model.actionVCName = @"";
-        model;
-    })];
-
-    [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test Demo";
-        model.actionVCName = @"";
-        model;
-    })];
-
-    [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test PageViewController";
-        model.actionVCName = @"";
-        model;
-    })];
-
-    [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test pure PageViewController";
+        FeedModel *model = [FeedModel new];
+        model.title = @"Test Weak Decorator";
         model.actionVC = 1;;
         model;
     })];
 
     [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test Present";
-        model.actionVC = 2;;
-        model;
-    })];
-
-    [array addObject:({
-        BDFeedModel *model = [BDFeedModel new];
-        model.title = @"Test ";
+        FeedModel *model = [FeedModel new];
+        model.title = @"Test Strong Decorator";
         model.actionVCName = @"";
+        model.actionVC = 2;
         model;
     })];
 
@@ -111,7 +50,6 @@ static NSArray *testFeedList() {
 @interface DemoViewController ()
 
 @property (nonatomic, strong) NSArray *feedList;
-@property (nonatomic, strong) PageVCDelegateAndDataSource *delegateAndDataSource;
 
 @end
 
@@ -122,12 +60,6 @@ static NSArray *testFeedList() {
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellReuseIdentifier];
     self.feedList = testFeedList();
     self.navigationItem.title = @"Demo";
-    self.navigationItem.rightBarButtonItem =[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(showPickView)];
-    self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc] initWithTitle:@"测试返回" style:UIBarButtonItemStylePlain target:self action:@selector(clickLeft)];
-}
-
-- (void)clickLeft {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -138,13 +70,12 @@ static NSArray *testFeedList() {
     return self.feedList.count;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellReuseIdentifier];
     if (!cell) {
         cell = [UITableViewCell new];
     }
-    BDFeedModel *model = [self.feedList objectAtIndex:indexPath.row];
+    FeedModel *model = [self.feedList objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%zd: %@",(NSInteger)(indexPath.row + 1),model.title];
 
     return cell;
@@ -154,34 +85,15 @@ static NSArray *testFeedList() {
     return 44;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    NSLog(@"%zd-%zd --> %zd-%zd",sourceIndexPath.section, sourceIndexPath.row,destinationIndexPath.section, destinationIndexPath.row);
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%zd-%zd %zd",indexPath.section, indexPath.row, editingStyle);
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BDFeedModel *model = [self.feedList objectAtIndex:indexPath.row];
+    FeedModel *model = [self.feedList objectAtIndex:indexPath.row];
     if (!model.actionVCName.length) {
-        if (model.actionVC == 1) {
-            [self showPurePageVC];
-        } else if(model.actionVC == 2) {
+        if(model.actionVC == 1) {
             [self showPresent];
+        } else if(model.actionVC == 2) {
+            DecoratorViewController *d = [DecoratorViewController decoratorViewController];
+            [self.navigationController pushViewController:d animated:YES];
         }
-    } else {
-//        UIViewController *vc = (UIViewController *)[NSClassFromString(model.actionVCName) new];
-//        vc.navigationItem.title = [model.title substringFromIndex:5];
-//        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -189,33 +101,6 @@ static NSArray *testFeedList() {
     UIViewController *alertController =(UIViewController *)[NSClassFromString(@"AlertViewController") new];
     alertController.navigationItem.title = @"showPresent";
     [self.navigationController presentViewController:alertController animated:YES completion:nil];
-}
-
-- (void)showPurePageVC {
-    NSDictionary *options1 = @{UIPageViewControllerOptionInterPageSpacingKey : @(10),
-                               UIPageViewControllerOptionSpineLocationKey:@(UIPageViewControllerSpineLocationMid)
-                               };
-    UIPageViewController *pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:(UIPageViewControllerTransitionStylePageCurl) navigationOrientation:(UIPageViewControllerNavigationOrientationHorizontal) options:options1];
-
-    self.delegateAndDataSource = [PageVCDelegateAndDataSource new];
-
-    pageViewController.dataSource = self.delegateAndDataSource;
-    pageViewController.delegate = self.delegateAndDataSource;
-
-    [pageViewController setViewControllers:[NSArray arrayWithObjects:self.delegateAndDataSource.vcs.firstObject,[self.delegateAndDataSource.vcs objectAtIndex:1] , nil]
-                                 direction:UIPageViewControllerNavigationDirectionForward
-                                  animated:YES
-                                completion:nil];
-
-    pageViewController.navigationItem.title = @"showPurePageVC";
-    [self.navigationController pushViewController:pageViewController animated:YES];
-
-}
-
-- (void)showPickView {
-    static BOOL editing = NO;
-    editing = !editing;
-    [self.tableView setEditing:editing animated: YES];
 }
 
 @end

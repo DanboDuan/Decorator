@@ -29,14 +29,11 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex  {
     // do some thing
-    NSLog(@"DActionSheetDelegateDecorator do some thing");
+    NSLog(@"ActionSheetDelegateDecorator do some thing");
     return [self.target actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
 }
 
 @end
-
-
-
 
 @implementation UIActionSheet (Decorator)
 
