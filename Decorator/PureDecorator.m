@@ -13,4 +13,8 @@
     return [self.target class];
 }
 
+- (BOOL)isProxy {
+    return NO;
+}
+
 @end
