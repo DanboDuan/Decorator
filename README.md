@@ -142,7 +142,7 @@ UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"这是UIActi
 
 #### Strong Decorator
 
-```
+```Objective-C
 @interface  AppearanceDecorator: StrongDecorator
 
 @end
@@ -182,7 +182,7 @@ UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"这是UIActi
 
 ## 应用
 
-1. Decorator可以再一定程度上达到swizzle的效果，前提是不是`[self method]`
+1. Decorator可以再一定程度上达到swizzle的效果，前提是，调用方式不是`[self method]`
 2. Decorator可以按需加载，比如在对象创建的时候配置decorator策略，可以无限嵌套，只要引用住该引用的target
 3. 必要情况可能需要swizzle的配合
 
