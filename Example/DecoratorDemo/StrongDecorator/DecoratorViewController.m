@@ -7,9 +7,9 @@
 //
 
 #import "DecoratorViewController.h"
-#import <Decorator/StrongDecorator.h>
+#import <Decorator/Decorator.h>
 
-@interface  AppearanceDecorator: StrongDecorator
+@interface  AppearanceDecorator: Decorator
 
 @end
 
@@ -38,7 +38,7 @@
 + (instancetype)decoratorViewController {
     DecoratorViewController *vc = [self new];
 
-    vc = (DecoratorViewController *)[[AppearanceDecorator alloc] initWithTarget:vc];
+    vc = (DecoratorViewController *)[AppearanceDecorator strongDecoratorWithTarget:vc];
 
     return vc;
 }

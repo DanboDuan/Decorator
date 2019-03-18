@@ -41,7 +41,12 @@
         return;
     }
 
-    DTableViewDelegateDecorator *decorator = [[DTableViewDelegateDecorator alloc] initWithTarget:delegate];
+    DWeakSelf;
+    DTableViewDelegateDecorator *decorator = [DTableViewDelegateDecorator weakDecoratorWithTarget:delegate notifyBlock:^{
+        DStrongSelf;
+        self.decorator = nil;
+        [self d_setTDelegate:nil];
+    }];
     self.decorator = decorator;
     [self d_setTDelegate:decorator];
 }

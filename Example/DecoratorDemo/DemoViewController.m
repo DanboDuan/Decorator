@@ -31,15 +31,16 @@ static NSArray *testFeedList() {
 
     [array addObject:({
         FeedModel *model = [FeedModel new];
-        model.title = @"Test Weak Decorator";
+        model.title = @"Weak Decorator";
+        model.actionVCName = @"DemoViewController";
         model.actionVC = 1;;
         model;
     })];
 
     [array addObject:({
         FeedModel *model = [FeedModel new];
-        model.title = @"Test Strong Decorator";
-        model.actionVCName = @"";
+        model.title = @"Strong Decorator";
+        model.actionVCName = @"DecoratorViewController";
         model.actionVC = 2;
         model;
     })];
@@ -87,20 +88,15 @@ static NSArray *testFeedList() {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     FeedModel *model = [self.feedList objectAtIndex:indexPath.row];
-    if (!model.actionVCName.length) {
-        if(model.actionVC == 1) {
-            [self showPresent];
-        } else if(model.actionVC == 2) {
-            DecoratorViewController *d = [DecoratorViewController decoratorViewController];
-            [self.navigationController pushViewController:d animated:YES];
-        }
+    if (model.actionVC == 2) {
+        UIViewController *vc = [DecoratorViewController decoratorViewController];
+        vc.navigationItem.title = model.title;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (model.actionVCName.length) {
+        UIViewController *vc =(UIViewController *)[NSClassFromString(model.actionVCName) new];
+        vc.navigationItem.title = model.title;
+        [self.navigationController pushViewController:vc animated:YES];
     }
-}
-
-- (void)showPresent {
-    UIViewController *alertController =(UIViewController *)[NSClassFromString(@"AlertViewController") new];
-    alertController.navigationItem.title = @"showPresent";
-    [self.navigationController presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

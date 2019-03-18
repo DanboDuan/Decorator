@@ -6,6 +6,15 @@
 //
 
 #import "Decorator.h"
+#import "TargetDeallocNotifier.h"
+#import <objc/runtime.h>
+
+static const void * kDecoratorTargetNilNotifier = &kDecoratorTargetNilNotifier;
+
+typedef NS_ENUM(NSInteger, DecoratorTargetType) {
+    DecoratorTargetTypeStrong = 1,
+    DecoratorTargetTypeWeak
+};
 
 @interface Decorator ()
 
@@ -18,13 +27,31 @@
 
 @implementation Decorator
 
-- (instancetype)initWithTarget:(id)target type:(DecoratorTargetType)targetType {
-    switch (targetType) {
-        case DecoratorTargetTypeStrong:     self.strongTarget = target; break;
-        case DecoratorTargetTypeWeak:       self.weakTarget = target;   break;
+// handling nil target
+// https://github.com/Flipboard/FLAnimatedImage/blob/76a31aefc645cc09463a62d42c02954a30434d7d/FLAnimatedImage/FLAnimatedImage.m#L786-L807
+
+- (instancetype)initWithTarget:(id)target type:(DecoratorTargetType)targetType nilBlock:(dispatch_block_t)block {
+    if (targetType == DecoratorTargetTypeWeak) {
+        TargetDeallocNotifier *notifier = [[TargetDeallocNotifier alloc] initWithBlock:block];
+        objc_setAssociatedObject(target, kDecoratorTargetNilNotifier, notifier, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        self.weakTarget = target;
+    } else {
+        self.strongTarget = target;
     }
     self.targetType = targetType;
+
     return self;
+}
+
++ (instancetype)weakDecoratorWithTarget:(id)target notifyBlock:(dispatch_block_t)block {
+    NSCAssert(target, @"target should not be nil");
+    NSCAssert(block, @"nilBlock should not be nil");
+    return [[self alloc] initWithTarget:target type:DecoratorTargetTypeWeak nilBlock:block];
+}
+
++ (instancetype)strongDecoratorWithTarget:(id)target {
+    NSCAssert(target, @"target should not be nil");
+    return [[self alloc] initWithTarget:target type:DecoratorTargetTypeStrong nilBlock:nil];
 }
 
 - (id)target {

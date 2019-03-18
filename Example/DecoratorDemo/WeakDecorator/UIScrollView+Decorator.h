@@ -2,20 +2,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Decorator/WeakDecorator.h>
+#import <Decorator/Decorator.h>
 
 //hook UIScrollView 的 delegate的相关方法
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DScrollViewDelegateDecorator: WeakDecorator
+@interface DScrollViewDelegateDecorator: Decorator
 
 
 @end
 
 @interface UIScrollView (Decorator)
 
-@property (nonatomic, strong) DScrollViewDelegateDecorator *decorator;
+@property (nonatomic, strong, nullable) DScrollViewDelegateDecorator *decorator;
 
 + (void)startSwizzle;
 

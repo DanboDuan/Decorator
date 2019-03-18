@@ -10,9 +10,7 @@
 		322CDC8D1AD53CB7E7E7E467 /* libPods-DecoratorDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89BA0562A2D369D48B1C796F /* libPods-DecoratorDemoTests.a */; };
 		6A28DC17C0B2C1677604571B /* libPods-DecoratorDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C86E5E2BF607475CB95A07D /* libPods-DecoratorDemoUITests.a */; };
 		C423526E2220E4D1006F09BF /* DecoratorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C423526D2220E4D1006F09BF /* DecoratorViewController.m */; };
-		C44E05DD221F858B00A1089F /* AlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C44E05DC221F858B00A1089F /* AlertViewController.m */; };
 		C44E05E0221F882B00A1089F /* Demo.m in Sources */ = {isa = PBXBuildFile; fileRef = C44E05DF221F882B00A1089F /* Demo.m */; };
-		C44E05E7221F902C00A1089F /* UIActionSheet+Decorator.m in Sources */ = {isa = PBXBuildFile; fileRef = C44E05E6221F902C00A1089F /* UIActionSheet+Decorator.m */; };
 		C4AC4461221CE14F0082F312 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4AC4460221CE14F0082F312 /* AppDelegate.m */; };
 		C4AC4467221CE14F0082F312 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4AC4465221CE14F0082F312 /* Main.storyboard */; };
 		C4AC4469221CE1510082F312 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4AC4468221CE1510082F312 /* Assets.xcassets */; };
@@ -54,12 +52,8 @@
 		9C86E5E2BF607475CB95A07D /* libPods-DecoratorDemoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DecoratorDemoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C423526C2220E4D1006F09BF /* DecoratorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecoratorViewController.h; sourceTree = "<group>"; };
 		C423526D2220E4D1006F09BF /* DecoratorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecoratorViewController.m; sourceTree = "<group>"; };
-		C44E05DB221F858B00A1089F /* AlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertViewController.h; sourceTree = "<group>"; };
-		C44E05DC221F858B00A1089F /* AlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertViewController.m; sourceTree = "<group>"; };
 		C44E05DE221F882B00A1089F /* Demo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Demo.h; sourceTree = "<group>"; };
 		C44E05DF221F882B00A1089F /* Demo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Demo.m; sourceTree = "<group>"; };
-		C44E05E5221F902C00A1089F /* UIActionSheet+Decorator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Decorator.h"; sourceTree = "<group>"; };
-		C44E05E6221F902C00A1089F /* UIActionSheet+Decorator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Decorator.m"; sourceTree = "<group>"; };
 		C4AC445C221CE14F0082F312 /* DecoratorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecoratorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4AC445F221CE14F0082F312 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C4AC4460221CE14F0082F312 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -183,8 +177,6 @@
 				C4AC446E221CE1510082F312 /* main.m */,
 				C4AC44B1221E3A1C0082F312 /* DemoViewController.h */,
 				C4AC44B2221E3A1C0082F312 /* DemoViewController.m */,
-				C44E05DB221F858B00A1089F /* AlertViewController.h */,
-				C44E05DC221F858B00A1089F /* AlertViewController.m */,
 				C44E05DE221F882B00A1089F /* Demo.h */,
 				C44E05DF221F882B00A1089F /* Demo.m */,
 			);
@@ -221,8 +213,6 @@
 		C4AC44A2221E32840082F312 /* WeakDecorator */ = {
 			isa = PBXGroup;
 			children = (
-				C44E05E5221F902C00A1089F /* UIActionSheet+Decorator.h */,
-				C44E05E6221F902C00A1089F /* UIActionSheet+Decorator.m */,
 				C4AC44A4221E32C40082F312 /* UIScrollView+Decorator.h */,
 				C4AC44A3221E32C40082F312 /* UIScrollView+Decorator.m */,
 				C4AC44A6221E32C40082F312 /* UITableView+Decorator.h */,
@@ -434,14 +424,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4AC44A0221E32010082F312 /* DSwizzle.m in Sources */,
-				C44E05DD221F858B00A1089F /* AlertViewController.m in Sources */,
 				C4AC446F221CE1510082F312 /* main.m in Sources */,
 				C423526E2220E4D1006F09BF /* DecoratorViewController.m in Sources */,
 				C4AC44A7221E32C40082F312 /* UIScrollView+Decorator.m in Sources */,
 				C4AC44A8221E32C40082F312 /* UITableView+Decorator.m in Sources */,
 				C4AC44B3221E3A1C0082F312 /* DemoViewController.m in Sources */,
 				C4AC4461221CE14F0082F312 /* AppDelegate.m in Sources */,
-				C44E05E7221F902C00A1089F /* UIActionSheet+Decorator.m in Sources */,
 				C44E05E0221F882B00A1089F /* Demo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

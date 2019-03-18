@@ -32,36 +32,11 @@
 
 ### 示例
 
-#### hook一个UIActionSheetDelegate
-
-```Objective-C
-@interface DActionSheetDelegateDecorator: WeakDecorator<UIActionSheetDelegate>
-@end
-
-@implementation DActionSheetDelegateDecorator
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex  {
-    // do some thing
-    NSLog(@"ActionSheetDelegateDecorator do some thing");
-    return [self.target actionSheet:actionSheet clickedButtonAtIndex:buttonIndex];
-}
-
-@end
-
-// 使用DActionSheetDelegateDecorator装饰实际的delegate
-DActionSheetDelegateDecorator *decorator = [[DActionSheetDelegateDecorator alloc] initWithTarget:delegate];
-UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"这是UIActionSheet" delegate:(id)decorator
-                                                    cancelButtonTitle:@"取消"
-                                               destructiveButtonTitle:@"确定"
-                                                    otherButtonTitles:@"按钮1", @"按钮2",nil];
-//保存decorator，因为delegate一般都是weak属性，需要你主动引用decorator
-
-```
 #### hook一个UITableViewDelegate
 你也可以同时用swizzle配合Decorator。
 
 ```Objective-C
-@interface DScrollViewDelegateDecorator: WeakDecorator<UIScrollViewDelegate>
+@interface DScrollViewDelegateDecorator: Decorator<UIScrollViewDelegate>
 
 
 @end
@@ -122,7 +97,12 @@ UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"这是UIActi
         return;
     }
 
-    DTableViewDelegateDecorator *decorator = [[DTableViewDelegateDecorator alloc] initWithTarget:delegate];
+    DWeakSelf;
+    DTableViewDelegateDecorator *decorator = [DTableViewDelegateDecorator weakDecoratorWithTarget:delegate notifyBlock:^{
+        DStrongSelf;
+        self.decorator = nil;
+        [self d_setTDelegate:nil];
+    }];
     // 引用住decorator
     self.decorator = decorator;
     [self d_setTDelegate:decorator];
@@ -186,6 +166,9 @@ UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"这是UIActi
 2. Decorator可以按需加载，比如在对象创建的时候配置decorator策略，可以无限嵌套，只要引用住该引用的target
 3. 必要情况可能需要swizzle的配合
 
+## weakTarget
+
+**weak target比decorator提前释放导致crash问题已经修复，原理是在示例中，通过回调的方式在target释放的时候回调decorator也设置对应的属性为nil**
 
 ## 证书
 

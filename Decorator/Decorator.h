@@ -9,16 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, DecoratorTargetType) {
-    DecoratorTargetTypeStrong = 1,
-    DecoratorTargetTypeWeak
-};
-
 @interface Decorator : NSProxy
 
-@property (nonatomic, strong, readonly) id target;
+@property (nonatomic, readonly) id target;
 
-- (instancetype)initWithTarget:(id)target type:(DecoratorTargetType)targetType;
++ (instancetype)weakDecoratorWithTarget:(id)target notifyBlock:(dispatch_block_t)block;
+
++ (instancetype)strongDecoratorWithTarget:(id)target;
 
 @end
 

@@ -6,12 +6,12 @@
 //  Copyright © 2019 bob. All rights reserved.
 //
 
-#import "AlertViewController.h"
+#import "DemoViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface DecoratorViewController : AlertViewController
+@interface DecoratorViewController : DemoViewController
 
 + (instancetype)decoratorViewController;
 

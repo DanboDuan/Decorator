@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#define DWeakSelf __weak typeof(self) wself = self
+#define DStrongSelf __strong typeof(wself) self = wself
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 // swizzle 类的实例方法 即 -方法
