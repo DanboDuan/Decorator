@@ -20,5 +20,7 @@ extern void d_swizzle_instance_method(Class cls, SEL originalSelector, SEL swizz
 // swizzle 类的类方法，即 +方法
 extern void d_swizzle_class_method(Class cls, SEL originalSelector, SEL swizzledSelector);
 
+// swizzle delegate
+extern void d_class_exchangeMethod(Class originalClass, SEL originalSel, Class replacedClass, SEL replacedSel, SEL orginReplaceSel);
 
 NS_ASSUME_NONNULL_END
