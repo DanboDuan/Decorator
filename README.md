@@ -15,9 +15,16 @@
 
 ## 使用
 
-直接copy代码，用你的项目prefix重命名文件和类名。
+1. 直接copy代码，用你的项目prefix重命名文件和类名。
+2. pod
 
-1. Decorator只能拦截`[obj method]`的调用，`[self method]`的调用只能使用swizzle
+```Ruby
+pod 'Decorator' ,:git => 'https://github.com/DanboDuan/Decorator.git',:branch => 'master',:tag => '2.0.0'
+```
+
+**注意**
+
+* Decorator只能拦截`[obj method]`的调用，`[self method]`的调用只能使用swizzle
 
 ## Demo代码
 
