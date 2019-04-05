@@ -2,7 +2,7 @@
 
 # 2.0.0
 
-*Released: 03/18/2018*
+*Released: 03/18/2019*
 
 **Changed:**
 
@@ -20,7 +20,7 @@
 
 # 1.0.0
 
-*Released: 03/02/2018*
+*Released: 03/02/2019*
 
 **Features:**
 
