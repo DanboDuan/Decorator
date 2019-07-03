@@ -13,9 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) id target;
 
-+ (instancetype)weakDecoratorWithTarget:(id)target notifyBlock:(dispatch_block_t)block;
++ (instancetype)weakDecoratorWithTarget:(id)target;
 
 + (instancetype)strongDecoratorWithTarget:(id)target;
+
+// NSProxy do not have the methods
+- (BOOL)respondsToSelector:(SEL)aSelector;
+- (id)forwardingTargetForSelector:(SEL)aSelector;
 
 @end
 

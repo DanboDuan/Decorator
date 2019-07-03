@@ -58,12 +58,7 @@
         return;
     }
 
-    DWeakSelf;
-    DScrollViewDelegateDecorator *decorator = [DScrollViewDelegateDecorator weakDecoratorWithTarget:delegate notifyBlock:^{
-        DStrongSelf;
-        self.decorator = nil;
-        [self d_setSDelegate:nil];
-    }];
+    DScrollViewDelegateDecorator *decorator = [DScrollViewDelegateDecorator weakDecoratorWithTarget:delegate];
     self.decorator = decorator;
     [self d_setSDelegate:decorator];
 }

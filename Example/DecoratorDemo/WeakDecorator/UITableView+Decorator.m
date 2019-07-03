@@ -41,12 +41,7 @@
         return;
     }
 
-    DWeakSelf;
-    DTableViewDelegateDecorator *decorator = [DTableViewDelegateDecorator weakDecoratorWithTarget:delegate notifyBlock:^{
-        DStrongSelf;
-        self.decorator = nil;
-        [self d_setTDelegate:nil];
-    }];
+    DTableViewDelegateDecorator *decorator = [DTableViewDelegateDecorator weakDecoratorWithTarget:delegate];
     self.decorator = decorator;
     [self d_setTDelegate:decorator];
 }

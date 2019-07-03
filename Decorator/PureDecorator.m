@@ -10,7 +10,11 @@
 @implementation PureDecorator
 
 - (Class)class {
-    return [self.target class];
+    if (self.target) {
+        return [self.target class];
+    }
+
+    return [super class];
 }
 
 - (BOOL)isProxy {
