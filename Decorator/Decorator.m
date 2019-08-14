@@ -24,9 +24,6 @@ typedef NS_ENUM(NSInteger, DecoratorTargetType) {
 
 @implementation Decorator
 
-// handling nil target
-// https://github.com/Flipboard/FLAnimatedImage/blob/76a31aefc645cc09463a62d42c02954a30434d7d/FLAnimatedImage/FLAnimatedImage.m#L786-L807
-
 - (instancetype)initWithTarget:(id)target type:(DecoratorTargetType)targetType {
     if (targetType == DecoratorTargetTypeWeak) {
         self.weakTarget = target;
@@ -39,12 +36,10 @@ typedef NS_ENUM(NSInteger, DecoratorTargetType) {
 }
 
 + (instancetype)weakDecoratorWithTarget:(id)target {
-    NSCAssert(target, @"target should not be nil");
     return [[self alloc] initWithTarget:target type:DecoratorTargetTypeWeak];
 }
 
 + (instancetype)strongDecoratorWithTarget:(id)target {
-    NSCAssert(target, @"target should not be nil");
     return [[self alloc] initWithTarget:target type:DecoratorTargetTypeStrong];
 }
 
